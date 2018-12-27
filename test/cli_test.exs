@@ -1,0 +1,26 @@
+defmodule CliTest do
+  use ExUnit.Case
+
+  alias ProgrammingElixirGithubIssueResolver.CLI, as: CLI
+
+  @moduletag :capture_log
+
+  doctest CLI
+
+  test ":help returned when passing -h or --help" do
+    assert CLI.parse_args(["-h", "anything"]) == :help
+    assert CLI.parse_args(["--help", "anything"]) == :help
+  end
+
+  test "user, project and count returned normally" do
+    assert CLI.parse_args(["user", "project", "404"]) == {"user", "project", 404}
+  end
+
+  test "user, project return normally with a default issue count" do
+    assert CLI.parse_args(["user", "project"]) == {"user", "project", 4}
+  end
+
+  test "invalid will return help" do
+    assert CLI.parse_args(["user"]) == :help
+  end
+end
