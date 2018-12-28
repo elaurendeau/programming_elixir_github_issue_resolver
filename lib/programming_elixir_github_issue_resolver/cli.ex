@@ -11,18 +11,15 @@ defmodule ProgrammingElixirGithubIssueResolver.CLI do
   def parse_args(argv) do
     argv
       |> OptionParser.parse(switches: [help: :boolean], aliases: [h: :help])
+      |> elem(1)
       |> _parse_args
   end
 
-  defp _parse_args({[help: true], _, _}) do
-    :help
-  end
-
-  defp _parse_args{_, [user, project, count], _} do
+  defp _parse_args([user, project, count]) do
     {user, project, String.to_integer(count)}
   end
 
-  defp _parse_args{_, [user, project], _} do
+  defp _parse_args([user, project]) do
     {user, project, @default_issue_count_parameter}
   end
 
