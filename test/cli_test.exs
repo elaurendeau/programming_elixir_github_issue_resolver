@@ -13,11 +13,11 @@ defmodule CliTest do
   end
 
   test "user, project and count returned normally" do
-    assert CLI.parse_args(["user", "project", "404"]) == {"user", "project", 404}
+    assert CLI.parse_args(["user", "project", "token", "404"]) == {"user", "project", "token", 404}
   end
 
   test "user, project return normally with a default issue count" do
-    assert CLI.parse_args(["user", "project"]) == {"user", "project", 4}
+    assert CLI.parse_args(["user", "project", "token"]) == {"user", "project", "token", 4}
   end
 
   test "invalid will return help" do
